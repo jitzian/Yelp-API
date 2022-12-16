@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Yelp App</string>
+    <string name="back_TEXT">Back</string>
+    <string name="time_out_error_TEXT">Your request exceeded the TIME OUT. Please try again</string>
+    <string name="generic_error_TEXT">An error occurred on our end. Please Try Later</string>
+    <string name="loading_dot_dot_dot_TEXT">Loading…</string>
+    <string name="no_internet_connection_TEXT">No Internet Connection…</string>
+    <string name="there_is_no_data_available_TEXT">There is no data available</string>
+    <string name="n_a_TEXT">N/A</string>
+    <string name="ph_TEXT">Ph</string>
+    <string name="address_TEXT">Address:</string>
+    <string name="pizza_TEXT">Pizza</string>
+    <string name="beer_TEXT">Beer</string>
+    <string name="scroll_down_TEXT">Scroll Down</string>
+    <string name="scroll_up_TEXT">Scroll Down</string>
+    <string name="details_TEXT">Details</string>
+
+    <!--Testing tags: ErrorScreen-->
+    <string name="errorScreen_broken_robot_test_TAG">broken_robot_test_TAG</string>
+    <string name="errorScreen_error_text_test_TAG">errorScreen_error_text_test_TAG</string>
+
+    <!--Testing tags: AddressRow-->
+    <string name="addressRow_text_address_test_TAG">addressRow_text_address_test_TAG</string>
+    <string name="addressRow_text_address_value_test_TAG">addressRow_text_address_value_test_TAG</string>
+
+    <!--Testing tags: ArrowBackIcon-->
+    <string name="arrowBackIcon_iconButton_test_TAG">arrowBackIcon_iconButton_test_TAG</string>
+    <string name="arrowBackIcon_text_back_test_TAG">arrowBackIcon_text_back_test_TAG</string>
+
+    <!--Testing tags: RowItem-->
+    <string name="rowItem_test_TAG">rowItem_test_TAG</string>
+    <string name="rowItem_businessName_test_TAG">rowItem_businessName_test_TAG</string>
+    <string name="rowItem_phone_value_test_TAG">rowItem_phone_value_test_TAG</string>
+
+    <!--Testing tags: BeersScreen-->
+    <string name="beersScreen_test_TAG">beersScreen_test_TAG</string>
+
+    <!--Testing tags: PizzaScreen-->
+    <string name="pizzaScreen_test_TAG">pizzaScreen_test_TAG</string>
+
+</resources>
