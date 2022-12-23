@@ -2,7 +2,9 @@ package com.example.yelpcode.ui.screens.details.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -17,13 +19,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
+import com.example.yelpcode.R
 import com.example.yelpcode.data.remote.model.Businesse
 import com.example.yelpcode.ui.app.YelpAppScreen
 import com.example.yelpcode.ui.common.ErrorScreen
 import com.example.yelpcode.ui.common.LoadingScreen
 import com.example.yelpcode.ui.common.MainTopBar
 import com.example.yelpcode.ui.screens.details.viewmodels.DetailsViewModel
-import com.example.yelpcode.R
 
 @Composable
 fun DetailsScreenState(
@@ -61,10 +63,12 @@ fun DetailsScreen(onBackClick: () -> Unit, data: Businesse) {
                 onBackClick = onBackClick
             )
         }) {
+            val scrollState = rememberScrollState()
             Box(modifier = Modifier.fillMaxWidth()) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .verticalScroll(state = scrollState)
                         .padding(all = dimensionResource(id = R.dimen.dimen_16_dp)),
                     verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.dimen_8_dp))
                 ) {
