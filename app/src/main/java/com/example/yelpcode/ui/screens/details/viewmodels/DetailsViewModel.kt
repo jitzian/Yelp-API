@@ -10,10 +10,13 @@ import com.example.yelpcode.data.remote.model.Businesse
 import com.example.yelpcode.domain.repository.BusinessRepository
 import com.example.yelpcode.utils.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,16 +29,14 @@ class DetailsViewModel @Inject constructor(
     val state: StateFlow<UIState>
         get() = _state.asStateFlow()
 
-    fun fetchDetailsById(id: String) = viewModelScope.launch {
+    fun fetchDetailsById(id: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             withTimeout(GlobalConstants.MAX_TIME_OUT) {
-                withContext(Dispatchers.IO) {
-                    if (state.value == UIState.Loading) {
-                        val data = repository.fetchBusinessById(id = id)
-                        _state.value = UIState.Success(
-                            data = data
-                        )
-                    }
+                if (state.value == UIState.Loading) {
+                    val data = repository.fetchBusinessById(id = id)
+                    _state.value = UIState.Success(
+                        data = data
+                    )
                 }
             }
         } catch (tce: TimeoutCancellationException) {
