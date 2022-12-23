@@ -50,7 +50,6 @@ fun <T : BusinessModel> ScrollFloatingButton(
                         state.animateScrollToItem(0)
                     } else {
                         state.animateScrollToItem(data.size)
-                        state.animateScrollToItem(data.size)
                     }
                 }
             },
