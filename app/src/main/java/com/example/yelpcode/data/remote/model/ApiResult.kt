@@ -2,11 +2,11 @@ package com.example.yelpcode.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultApi(
+data class ApiResult(
     @SerializedName("businesses")
-    val businesses: List<Businesse?>,
+    val businesses: List<ApiBusiness> = emptyList(),
     @SerializedName("region")
-    val region: Region?,
+    val apiRegion: ApiRegion?? = null,
     @SerializedName("total")
-    val total: Int?
+    val total: Int? = -1
 )

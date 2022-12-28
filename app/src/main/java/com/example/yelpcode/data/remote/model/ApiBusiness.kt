@@ -2,25 +2,25 @@ package com.example.yelpcode.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Businesse(
+data class ApiBusiness(
     @SerializedName("alias")
-    val alias: String?,
+    val alias: String,
     @SerializedName("categories")
-    val categories: List<Category>,
+    val categories: List<ApiCategory>,
     @SerializedName("coordinates")
-    val coordinates: Coordinates?,
+    val apiCoordinates: ApiCoordinates?,
     @SerializedName("distance")
     val distance: Double?,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("image_url")
     val imageUrl: String?,
     @SerializedName("is_closed")
     val isClosed: Boolean?,
     @SerializedName("location")
-    val location: Location?,
+    val apiLocation: ApiLocation?,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("phone")
     val phone: String?,
     @SerializedName("price")

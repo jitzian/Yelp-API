@@ -2,7 +2,7 @@ package com.example.yelpcode.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Center(
+data class ApiCoordinates(
     @SerializedName("latitude")
     val latitude: Double?,
     @SerializedName("longitude")
