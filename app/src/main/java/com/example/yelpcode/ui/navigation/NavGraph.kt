@@ -7,8 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.yelpcode.ui.screens.businesses.views.BeersScreenState
-import com.example.yelpcode.ui.screens.businesses.views.PizzasScreenState
+import com.example.yelpcode.ui.screens.businesses.beers.views.BeersScreenState
+import com.example.yelpcode.ui.screens.businesses.pizza.views.PizzasScreenState
 import com.example.yelpcode.ui.screens.details.views.DetailsScreenState
 
 @Composable

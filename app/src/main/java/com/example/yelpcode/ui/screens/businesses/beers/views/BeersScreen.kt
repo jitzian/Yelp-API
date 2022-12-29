@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST", "FINAL_UPPER_BOUND")
 
-package com.example.yelpcode.ui.screens.businesses.views
+package com.example.yelpcode.ui.screens.businesses.beers.views
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,16 +23,16 @@ import com.example.yelpcode.ui.common.MainTopBar
 import com.example.yelpcode.ui.common.RowItem
 import com.example.yelpcode.ui.common.ScrollFloatingButton
 import com.example.yelpcode.ui.screens.businesses.businessError.BusinessError
-import com.example.yelpcode.ui.screens.businesses.viewmodel.PizzaViewModel
+import com.example.yelpcode.ui.screens.businesses.beers.viewmodel.BeersViewModel
 
 @Composable
-fun PizzasScreenState(
+fun BeersScreenState(
     navigateToDetails: (String) -> Unit,
-    businessesViewModel: PizzaViewModel = hiltViewModel()
+    businessesViewModel: BeersViewModel = hiltViewModel()
 ) {
     val state by businessesViewModel.state.collectAsState()
-    businessesViewModel.fetchPizzas()
-    PizzasScreen(
+    businessesViewModel.fetchBeers()
+    BeersScreen(
         navigateToDetails = navigateToDetails,
         loading = state.loading,
         data = state.data as List<BusinessModel>
@@ -40,7 +40,7 @@ fun PizzasScreenState(
 }
 
 @Composable
-fun PizzasScreen(
+fun BeersScreen(
     navigateToDetails: (String) -> Unit,
     loading: Boolean,
     data: List<BusinessModel>
@@ -51,12 +51,12 @@ fun PizzasScreen(
         Scaffold(
             topBar = {
                 MainTopBar(
-                    barTitle = stringResource(id = R.string.pizza_TEXT)
+                    barTitle = stringResource(id = R.string.beer_TEXT)
                 )
             },
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
-                .testTag(stringResource(id = R.string.pizzaScreen_test_TAG))
+                .testTag(stringResource(id = R.string.beersScreen_test_TAG))
 
         ) {
             if (loading) {

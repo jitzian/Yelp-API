@@ -1,4 +1,4 @@
-package com.example.yelpcode.ui.screens.businesses.viewmodel
+package com.example.yelpcode.ui.screens.businesses.beers.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
