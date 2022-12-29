@@ -16,6 +16,9 @@
     <string name="details_TEXT">Details</string>
     <string name="refresh_TEXT">Refresh</string>
 
+    <!-- Error Code(s)-->
+    <string name="error_code_TEXT">Error Code</string>
+
     <!--Testing tags: ErrorScreen-->
     <string name="errorScreen_broken_robot_test_TAG">broken_robot_test_TAG</string>
     <string name="errorScreen_error_text_test_TAG">errorScreen_error_text_test_TAG</string>
@@ -38,5 +41,4 @@
 
     <!--Testing tags: PizzaScreen-->
     <string name="pizzaScreen_test_TAG">pizzaScreen_test_TAG</string>
-
 </resources>
