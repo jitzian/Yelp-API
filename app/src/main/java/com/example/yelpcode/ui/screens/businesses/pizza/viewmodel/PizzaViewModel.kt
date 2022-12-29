@@ -19,6 +19,9 @@ class PizzaViewModel @Inject constructor(
     private val _state = MutableStateFlow(UIState(loading = true))
     val state = _state.asStateFlow()
 
+    /**
+     * Function that fetches places with pizzas category
+     * */
     fun fetchPizzas() = viewModelScope.launch(Dispatchers.IO) {
         val pizzas = repository.fetchBusiness("pizzas")
         _state.value = UIState(true)

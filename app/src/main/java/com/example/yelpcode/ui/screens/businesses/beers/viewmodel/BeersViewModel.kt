@@ -20,6 +20,9 @@ class BeersViewModel @Inject constructor(
     private val _state = MutableStateFlow(UIState(loading = true))
     val state: StateFlow<UIState> = _state.asStateFlow()
 
+    /**
+     * Function that fetches places with beer category
+     * */
     fun fetchBeers() = viewModelScope.launch(Dispatchers.IO) {
         val beers = repository.fetchBusiness("beers")
         _state.value = UIState(true)
