@@ -4,6 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithTag
 import com.example.yelpcode.base.BaseTestCase
 import com.example.yelpcode.domain.model.BusinessModel
+import com.example.yelpcode.ui.screens.businesses.beers.views.BeersScreen
 import com.example.yelpcode.ui.theme.YelpTheme
 import org.junit.Test
 
@@ -30,6 +31,7 @@ class BeersScreenKtTest : BaseTestCase() {
                             address = "Somewhere over the world"
                         )
                     ),
+                    loading = false,
                     navigateToDetails = {}
                 )
             }
