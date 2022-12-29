@@ -18,6 +18,7 @@ class BusinessRepositoryImpl @Inject constructor(
     private val restApi: RestApi,
     private val application: Application
 ) : BusinessRepository {
+
     override suspend fun fetchBusiness(term: String): MutableList<BusinessModel?> {
         val data: ApiResult
         val listOfBusinessModel = mutableListOf<BusinessModel?>()
@@ -55,7 +56,26 @@ class BusinessRepositoryImpl @Inject constructor(
     }
 
     override suspend fun fetchBusinessById(id: String): BusinessModel {
-        //TODO: Add the validations here as well..
-        return restApi.fetchBusinessById(id).asBusinessModel()
+        var businessData: BusinessModel
+        try {
+            withTimeout(GlobalConstants.MAX_TIME_OUT) {
+                businessData = restApi.fetchBusinessById(id).asBusinessModel()
+            }
+        } catch (tce: TimeoutCancellationException) {
+            businessData = BusinessModel(
+                error = Error.Connectivity
+            )
+        } catch (httpException: HttpException) {
+            businessData = BusinessModel(
+                error = Error.Server(code = httpException.code())
+            )
+        } catch (e: Exception) {
+            businessData = BusinessModel(
+                error = Error.Unknown(
+                    message = e.message ?: application.getString(R.string.n_a_TEXT)
+                )
+            )
+        }
+        return businessData
     }
 }
