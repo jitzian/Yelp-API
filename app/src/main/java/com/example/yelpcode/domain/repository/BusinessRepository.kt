@@ -1,9 +1,8 @@
 package com.example.yelpcode.domain.repository
 
-import com.example.yelpcode.data.remote.model.Businesse
-import com.example.yelpcode.data.remote.model.ResultApi
+import com.example.yelpcode.domain.model.BusinessModel
 
 interface BusinessRepository {
-    suspend fun fetchBusiness(term: String): ResultApi
-    suspend fun fetchBusinessById(id: String): Businesse
+    suspend fun fetchBusiness(term: String): MutableList<BusinessModel?>
+    suspend fun fetchBusinessById(id: String): BusinessModel
 }
