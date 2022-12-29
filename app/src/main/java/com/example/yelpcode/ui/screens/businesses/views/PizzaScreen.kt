@@ -2,7 +2,6 @@
 
 package com.example.yelpcode.ui.screens.businesses.views
 
-import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -17,12 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.yelpcode.R
+import com.example.yelpcode.data.remote.model.Error
 import com.example.yelpcode.domain.model.BusinessModel
 import com.example.yelpcode.ui.app.YelpAppScreen
-import com.example.yelpcode.ui.common.LoadingScreen
-import com.example.yelpcode.ui.common.MainTopBar
-import com.example.yelpcode.ui.common.RowItem
-import com.example.yelpcode.ui.common.ScrollFloatingButton
+import com.example.yelpcode.ui.common.*
 import com.example.yelpcode.ui.screens.businesses.viewmodel.PizzaViewModel
 
 @Composable
@@ -45,7 +42,6 @@ fun PizzasScreen(
     loading: Boolean,
     data: List<BusinessModel>
 ) {
-    Log.e("PizzasScreen", "PizzasScreen::loading::$loading")
     val state = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     YelpAppScreen {
@@ -63,12 +59,34 @@ fun PizzasScreen(
             if (loading) {
                 LoadingScreen()
             }
-            LazyColumn(state = state) {
-                items(data) { item ->
-                    RowItem(
-                        data = item,
-                        onItemClick = { navigateToDetails(item.id ?: "0") }
-                    )
+            if (data.size == 1 && data[0].error != null) {
+                when (data[0].error) {
+                    is Error.Server -> {
+                        ErrorScreen(
+                            message = stringResource(id = R.string.error_code_TEXT)
+                                .plus(" ")
+                                .plus((data[0].error as Error.Server).code)
+                        )
+                    }
+                    Error.Connectivity -> {
+                        ErrorScreen(
+                            message = stringResource(id = R.string.no_internet_connection_TEXT)
+                                .plus(" ")
+                                .plus((data[0].error as Error.Connectivity))
+                        )
+                    }
+                    else -> {
+                        ErrorScreen(message = (data[0].error as Error.Unknown).message)
+                    }
+                }
+            } else {
+                LazyColumn(state = state) {
+                    items(data) { item ->
+                        RowItem(
+                            data = item,
+                            onItemClick = { navigateToDetails(item.id ?: "0") }
+                        )
+                    }
                 }
             }
             ScrollFloatingButton(state = state, coroutineScope = coroutineScope, data = data)
