@@ -1,4 +1,4 @@
-package com.example.yelpcode.ui.screens
+package com.example.yelpcode.ui.screens.businesses.businessError
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource

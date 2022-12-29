@@ -22,7 +22,7 @@ import com.example.yelpcode.ui.common.LoadingScreen
 import com.example.yelpcode.ui.common.MainTopBar
 import com.example.yelpcode.ui.common.RowItem
 import com.example.yelpcode.ui.common.ScrollFloatingButton
-import com.example.yelpcode.ui.screens.BusinessError
+import com.example.yelpcode.ui.screens.businesses.businessError.BusinessError
 import com.example.yelpcode.ui.screens.businesses.viewmodel.BeersViewModel
 
 @Composable
