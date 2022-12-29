@@ -7,23 +7,22 @@ import com.example.yelpcode.domain.repository.BusinessRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeersViewModel @Inject constructor(
+class PizzaViewModel @Inject constructor(
     private val repository: BusinessRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(UIState(loading = true))
-    val state: StateFlow<UIState> = _state.asStateFlow()
+    val state = _state.asStateFlow()
 
-    fun fetchBeers() = viewModelScope.launch(Dispatchers.IO) {
-        val beers = repository.fetchBusiness("beers")
+    fun fetchPizzas() = viewModelScope.launch(Dispatchers.IO) {
+        val pizzas = repository.fetchBusiness("pizzas")
         _state.value = UIState(true)
-        _state.value = UIState(data = beers)
+        _state.value = UIState(data = pizzas)
     }
 
     data class UIState(

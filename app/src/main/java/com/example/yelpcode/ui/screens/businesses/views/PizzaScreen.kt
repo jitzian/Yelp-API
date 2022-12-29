@@ -2,6 +2,7 @@
 
 package com.example.yelpcode.ui.screens.businesses.views
 
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -18,42 +19,33 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.yelpcode.R
 import com.example.yelpcode.domain.model.BusinessModel
 import com.example.yelpcode.ui.app.YelpAppScreen
-import com.example.yelpcode.ui.common.*
-import com.example.yelpcode.ui.screens.businesses.viewmodel.BusinessesViewModel
+import com.example.yelpcode.ui.common.LoadingScreen
+import com.example.yelpcode.ui.common.MainTopBar
+import com.example.yelpcode.ui.common.RowItem
+import com.example.yelpcode.ui.common.ScrollFloatingButton
+import com.example.yelpcode.ui.screens.businesses.viewmodel.PizzaViewModel
 
 @Composable
 fun PizzasScreenState(
     navigateToDetails: (String) -> Unit,
-    businessesViewModel: BusinessesViewModel = hiltViewModel()
+    businessesViewModel: PizzaViewModel = hiltViewModel()
 ) {
     val state by businessesViewModel.state.collectAsState()
-    businessesViewModel.fetchBusiness()
-
-    when (state) {
-        is BusinessesViewModel.UIState.Loading -> {
-            LoadingScreen()
-        }
-        is BusinessesViewModel.UIState.Success -> {
-            if ((state as BusinessesViewModel.UIState.Success).places.isNotEmpty()) {
-                PizzasScreen(
-                    navigateToDetails = navigateToDetails,
-                    data = (state as BusinessesViewModel.UIState.Success).places as List<BusinessModel>
-                )
-            } else {
-                ErrorScreen(message = stringResource(id = R.string.there_is_no_data_available_TEXT))
-            }
-        }
-        is BusinessesViewModel.UIState.Error -> {
-            ErrorScreen(message = (state as BusinessesViewModel.UIState.Error).message)
-        }
-    }
+    businessesViewModel.fetchPizzas()
+    PizzasScreen(
+        navigateToDetails = navigateToDetails,
+        loading = state.loading,
+        data = state.data as List<BusinessModel>
+    )
 }
 
 @Composable
-fun <T : BusinessModel> PizzasScreen(
+fun PizzasScreen(
     navigateToDetails: (String) -> Unit,
-    data: List<T>
+    loading: Boolean,
+    data: List<BusinessModel>
 ) {
+    Log.e("PizzasScreen", "PizzasScreen::loading::$loading")
     val state = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     YelpAppScreen {
@@ -68,6 +60,9 @@ fun <T : BusinessModel> PizzasScreen(
                 .testTag(stringResource(id = R.string.pizzaScreen_test_TAG))
 
         ) {
+            if (loading) {
+                LoadingScreen()
+            }
             LazyColumn(state = state) {
                 items(data) { item ->
                     RowItem(
@@ -79,5 +74,5 @@ fun <T : BusinessModel> PizzasScreen(
             ScrollFloatingButton(state = state, coroutineScope = coroutineScope, data = data)
         }
     }
-}
 
+}

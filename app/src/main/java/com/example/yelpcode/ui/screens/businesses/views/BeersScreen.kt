@@ -2,6 +2,7 @@
 
 package com.example.yelpcode.ui.screens.businesses.views
 
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,69 +16,63 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.yelpcode.R
 import com.example.yelpcode.domain.model.BusinessModel
 import com.example.yelpcode.ui.app.YelpAppScreen
-import com.example.yelpcode.ui.common.*
+import com.example.yelpcode.ui.common.LoadingScreen
+import com.example.yelpcode.ui.common.MainTopBar
+import com.example.yelpcode.ui.common.RowItem
+import com.example.yelpcode.ui.common.ScrollFloatingButton
 import com.example.yelpcode.ui.screens.businesses.viewmodel.BeersViewModel
-import com.example.yelpcode.R
 
 @Composable
 fun BeersScreenState(
     navigateToDetails: (String) -> Unit,
-    beerViewModel: BeersViewModel = hiltViewModel()
+    businessesViewModel: BeersViewModel = hiltViewModel()
 ) {
-    val state by beerViewModel.state.collectAsState()
-    beerViewModel.fetchBeers()
-
-    when (state) {
-        is BeersViewModel.UIState.Loading -> {
-            LoadingScreen()
-        }
-        is BeersViewModel.UIState.Success -> {
-            if ((state as BeersViewModel.UIState.Success).places.isNotEmpty()) {
-                BeersScreen(
-                    navigateToDetails = navigateToDetails,
-                    data = (state as BeersViewModel.UIState.Success).places as List<BusinessModel>
-                )
-            } else {
-                ErrorScreen(message = stringResource(id = R.string.there_is_no_data_available_TEXT))
-            }
-        }
-        is BeersViewModel.UIState.Error -> {
-            ErrorScreen(message = (state as BeersViewModel.UIState.Error).message)
-        }
-    }
+    val state by businessesViewModel.state.collectAsState()
+    businessesViewModel.fetchBeers()
+    BeersScreen(
+        navigateToDetails = navigateToDetails,
+        loading = state.loading,
+        data = state.data as List<BusinessModel>
+    )
 }
 
 @Composable
-fun <T : BusinessModel> BeersScreen(
+fun BeersScreen(
     navigateToDetails: (String) -> Unit,
-    data: List<T>
+    loading: Boolean,
+    data: List<BusinessModel>
 ) {
+    Log.e("BeersScreen", "BeersScreen::loading::$loading")
     val state = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     YelpAppScreen {
         Scaffold(
             topBar = {
                 MainTopBar(
-                    barTitle = stringResource(id = R.string.beer_TEXT),
-                    onBackClick = { }
+                    barTitle = stringResource(id = R.string.beer_TEXT)
                 )
             },
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .testTag(stringResource(id = R.string.beersScreen_test_TAG))
-        ) {
 
+        ) {
+            if (loading) {
+                LoadingScreen()
+            }
             LazyColumn(state = state) {
                 items(data) { item ->
                     RowItem(
                         data = item,
-                        onItemClick = { navigateToDetails.invoke(item.id ?: "0") }
+                        onItemClick = { navigateToDetails(item.id ?: "0") }
                     )
                 }
             }
             ScrollFloatingButton(state = state, coroutineScope = coroutineScope, data = data)
         }
     }
+
 }
