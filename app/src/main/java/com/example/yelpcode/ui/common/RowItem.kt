@@ -21,11 +21,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import com.example.yelpcode.R
 import com.example.yelpcode.constants.GlobalConstants.Companion.EMPTY_SPACE
 import com.example.yelpcode.domain.model.BusinessModel
-import com.example.yelpcode.R
+
 @Composable
-fun <T : BusinessModel> RowItem(data: T, onItemClick: () -> Unit) {
+fun RowItem(data: BusinessModel, onItemClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
