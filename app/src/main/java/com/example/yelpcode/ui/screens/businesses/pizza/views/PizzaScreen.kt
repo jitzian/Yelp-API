@@ -73,8 +73,8 @@ fun PizzasScreen(
                         )
                     }
                 }
+                ScrollFloatingButton(state = state, coroutineScope = coroutineScope, data = data)
             }
-            ScrollFloatingButton(state = state, coroutineScope = coroutineScope, data = data)
         }
     }
 
