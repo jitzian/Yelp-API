@@ -30,7 +30,7 @@ data class ApiBusiness(
     @SerializedName("review_count")
     val reviewCount: Int?,
     @SerializedName("transactions")
-    val transactions: List<String?>?,
+    val transactions: List<String?>,
     @SerializedName("url")
     val url: String?
 )
