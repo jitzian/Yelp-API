@@ -157,3 +157,8 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
     //testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 }
+
+//DataStore
+dependencies {
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+}
